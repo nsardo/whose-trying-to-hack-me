@@ -4,7 +4,7 @@ require "set"
 
 module LogParser
   extend self
-  # Parses each line of log file searching for potential hacker IP's
+  # Parses each line of auth.log file searching for potential hacker IP's
   #
   # ```
   # parse_lines "/var/log/auth.log", 100
@@ -20,7 +20,7 @@ module LogParser
   # "123.164.227.204"]
   # ```
   #
-  def parse_lines( file : String, num_lines : Number ) : Array(String)
+  def parse_auth( file : String, num_lines : Number ) : Array(String)
     count = 0
     suspects = Set(String).new
     File.each_line(file) do |line|
@@ -36,4 +36,4 @@ module LogParser
   end
 end
 
-#LogParser.parse_lines "/users/nsardo/desktop/log-file-source/auth.log", 100
+#LogParser.parse_auth "/users/nsardo/desktop/log-file-source/auth.log", 100

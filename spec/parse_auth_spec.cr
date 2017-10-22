@@ -3,9 +3,9 @@ require "../src/logparser"
 
 #initial test hard-coded to test files on dev computer for moment
 describe LogParser do
-  describe "#parse_lines" do
+  describe "#parse_auth" do
     it "should return an array of IP's" do
-      LogParser.parse_lines("/users/nsardo/desktop/log-file-source/auth.log",
+      LogParser.parse_auth("/users/nsardo/desktop/log-file-source/auth.log",
         100).should eq ["182.254.146.248",
  "74.215.81.152",
  "51.255.46.112",
