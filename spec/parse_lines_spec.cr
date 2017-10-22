@@ -1,6 +1,8 @@
 require "spec"
 require "../src/logparser"
 
+#initial test hard-coded to test files on dev computer for moment
+describe LogParser do
   describe "#parse_lines" do
     it "should return an array of IP's" do
       LogParser.parse_lines("/users/nsardo/desktop/log-file-source/auth.log",
@@ -15,4 +17,4 @@ require "../src/logparser"
  "123.164.227.204"]
     end
   end
-    
+end
