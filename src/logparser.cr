@@ -1,4 +1,5 @@
 require "set"
+include IO
 
 # @author Nicholas Sardo
 
@@ -25,15 +26,36 @@ module LogParser
     suspects = Set(String).new
     File.each_line(file) do |line|
       count += 1
-      if count < num_lines 
+      if count < num_lines
         w = line.split(" ")
         if w[5] == "Invalid"
           suspects.add( w[-1] )
         end
       end
     end
-    p suspects.to_a
+    io     = IO::Memory.new(50)
+    ar     = [] of String
+    outp_a = [] of String
+    ar     = suspects.to_a
+
+    ar.each do |a|
+      puts "\n"
+      puts a
+      cmd = "whois #{a} | grep 'NetRange:\\|NetType:\\|OrgName:\\|Comment:\\|Address:\\|City:\\|StateProv:\\|PostalCode:\\|Country:'"
+      io << (Process.run(cmd, shell: true, output: io, error: io))
+      io.rewind
+      outp_a = io.to_s.split("\n")
+      p "-------------------------------------------"
+      outp_a.each do |l|
+        next if l =~ /^#/
+        p l
+      end
+      p "-------------------------------------------"
+      io.clear
+    end
+    p ar
   end
 end
+# p $?.exitstatus
 
-#LogParser.parse_auth "/users/nsardo/desktop/log-file-source/auth.log", 100
+LogParser.parse_auth "/users/nsardo/desktop/log-file-source/auth.log", 100
