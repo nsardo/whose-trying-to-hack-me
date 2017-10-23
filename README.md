@@ -3,7 +3,7 @@
 This is the beginnings of some tools designed to assist in identifying possibly
 hostile IP's
 
-This initial commit is just a basic function that analyzes the auth.log file, finding likely suspects based on Invalid attempts at ssh login.
+Currently just basic functionality that analyzes the auth.log file, finding likely suspects based on Invalid attempts at ssh login, and then running a whois on each IP
 
 
 
